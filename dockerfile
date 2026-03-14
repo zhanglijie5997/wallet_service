@@ -25,12 +25,12 @@ FROM python:3.12-slim-bookworm
 
 # 创建非 root 用户（安全最佳实践）
 RUN useradd --create-home --shell /bin/bash appuser
-WORKDIR /app
+WORKDIR /
 USER appuser
 
 # 只复制 venv + 必要文件
 COPY --from=builder /venv /venv
-COPY --from=builder /app /app
+COPY --from=builder / /
 
 ENV PATH="/venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
