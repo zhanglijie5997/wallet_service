@@ -9,7 +9,7 @@ COPY --from=ghcr.io/astral-sh/uv:0.5.4 /uv /usr/local/bin/uv
 WORKDIR /app
 
 # 复制依赖文件，先缓存依赖层
-COPY pyproject.toml uv.lock* requirements.txt* ./
+COPY requirements.txt* ./
 
 # 安装依赖（生产模式，无 dev 依赖）
 RUN uv venv /venv && \
