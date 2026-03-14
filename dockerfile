@@ -6,7 +6,7 @@ FROM python:3.12-slim-bookworm AS builder
 # 安装 uv（官方镜像方式，最稳定）
 COPY --from=ghcr.io/astral-sh/uv:0.5.4 /uv /usr/local/bin/uv
 
-WORKDIR /app
+WORKDIR /
 
 # 复制依赖文件，先缓存依赖层
 COPY pyproject.toml uv.lock* requirements.txt* ./
