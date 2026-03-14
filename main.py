@@ -1,6 +1,7 @@
 # main.py
 from fastapi import FastAPI
-from models.res_mode import ApiResponse
+from models.index_model import HomeModel
+from models.res_mode import ApiResponse, success
 from pydantic import BaseModel
 
 app = FastAPI(
@@ -14,9 +15,10 @@ class Item(BaseModel):
     price: float
     is_offer: bool = None
 
-@app.get("/", response_model=ApiResponse[list[dict]])
+@app.get("/", response_model=ApiResponse[list[HomeModel]])
 async def read_root():
-    return ApiResponse(data=[], code=10000)
+    return success(data=[HomeModel(name="aaa", age=12)])
+
 
 @app.get("/items/{item_id}")
 async def read_item(item_id: int, q: str | None = None):

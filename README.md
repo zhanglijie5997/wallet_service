@@ -1,11 +1,11 @@
 # wallet_service
 
 
-# 生产模式（无热重载，默认监听 0.0.0.0:8000）
-fastapi run main.py
+# 开发时（带 --reload 热更新）
+uvicorn main:app --reload
 
-# 指定端口 + 多 worker（推荐生产用法）
-fastapi run main.py --port 8000 --workers 4
+# 或者更详细一点
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
-# 或者传统写法（仍然有效）
+# 生产环境（去掉 --reload，建议加 workers）
 uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
