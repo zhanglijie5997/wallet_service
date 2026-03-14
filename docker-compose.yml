@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app  # 开发热重载用，生产时注释掉
+    environment:
+      - ENVIRONMENT=development  # 或 production
+      - DATABASE_URL=postgresql://user:pass@db:5432/mydb  # 如果有 DB
+    command: uvicorn src.myapp.main:app --host 0.0.0.0 --port 8000 --reload  # 开发用
+    # 生产时用 Dockerfile 默认 CMD（Gunicorn），可覆盖：
+    # command: gunicorn -k uvicorn.workers.UvicornWorker -w 4 --bind 0.0.0.0:8000 src.myapp.main:app
+
+  # 可选：加 Redis / Postgres / Nginx 等
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+# volumes:
+#   redis_data:
